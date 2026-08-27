@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basement Electrical Reference — Columbus, OH</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
+
+  :root {
+    --bg: #1a1f2e;
+    --surface: #222840;
+    --surface2: #2a3050;
+    --accent: #f0c040;
+    --accent2: #4eb8a0;
+    --danger: #e05c5c;
+    --text: #dde3f0;
+    --muted: #8892aa;
+    --border: #333d5a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 24px 28px 20px;
+  }
+
+  header h1 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  header p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  nav {
+    display: flex;
+    gap: 6px;
+    padding: 16px 28px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  nav button {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 6px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    transition: all 0.15s;
+  }
+
+  nav button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  nav button.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  main {
+    padding: 24px 28px;
+    max-width: 900px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  h2 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent2);
+    margin: 20px 0 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+
+  th {
+    background: var(--surface2);
+    color: var(--accent);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 2px solid var(--accent);
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  tr:hover td { background: var(--surface2); }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+  }
+
+  .tag-ok { background: #1a3d2e; color: #4eb8a0; border: 1px solid #4eb8a0; }
+  .tag-warn { background: #3d2e1a; color: #f0c040; border: 1px solid #f0c040; }
+  .tag-danger { background: #3d1a1a; color: #e05c5c; border: 1px solid #e05c5c; }
+  .tag-info { background: #1a2a3d; color: #6ab0e0; border: 1px solid #6ab0e0; }
+
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 14px 16px;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+  }
+
+  .callout.danger { border-left-color: var(--danger); }
+  .callout.info { border-left-color: var(--accent2); }
+
+  .callout strong {
+    display: block;
+    margin-bottom: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+  }
+
+  .callout.danger strong { color: var(--danger); }
+  .callout.info strong { color: var(--accent2); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px;
+  }
+
+  .card-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .card-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .card-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .checklist { list-style: none; margin-bottom: 20px; }
+  .checklist li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .check {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 3px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    transition: all 0.15s;
+  }
+
+  .check.done {
+    background: var(--accent2);
+    border-color: var(--accent2);
+  }
+
+  .check.done::after {
+    content: '✓';
+    color: var(--bg);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .check-text.done { text-decoration: line-through; color: var(--muted); }
+
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  .muted { color: var(--muted); font-size: 13px; }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    main { padding: 16px; }
+    nav { padding: 12px 16px; }
+    header { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚡ Basement Electrical Reference</h1>
+  <p>Columbus, OH · Square D QOC30U · 150A Service · 30-Space Panel</p>
+</header>
+
+<nav>
+  <button class="active" onclick="show('circuits', this)">Circuits</button>
+  <button onclick="show('panel', this)">Panel</button>
+  <button onclick="show('wire', this)">Wire & Breakers</button>
+  <button onclick="show('devices', this)">Devices</button>
+  <button onclick="show('install', this)">Install Specs</button>
+  <button onclick="show('code', this)">Code Rules</button>
+  <button onclick="show('checklist', this)">Checklist</button>
+</nav>
+
+<main>
+
+  <!-- CIRCUITS -->
+  <div class="section active" id="circuits">
+    <h2>Planned Basement Circuits</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Circuit</th>
+          <th>Wire</th>
+          <th>Breaker</th>
+          <th>Est. Draw</th>
+          <th>Devices</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">1</td>
+          <td>TV Wall</td>
+          <td><span class="tag tag-ok">12/2 NM-B</span></td>
+          <td>20A AFCI/GFCI</td>
+          <td>8–12A</td>
+          <td>Both TVs, media gear, soundbar, gaming</td>
+        </tr>
+        <tr>
+          <td class="mono">2</td>
+          <td>General / Fridge Wall</td>
+          <td><span class="tag tag-ok">12/2 NM-B</span></td>
+          <td>20A AFCI/GFCI</td>
+          <td>7–10A</td>
+          <td>Mini fridge, dehumidifier, radon fan, general outlets</td>
+        </tr>
+        <tr>
+          <td class="mono">3</td>
+          <td>Plex Server</td>
+          <td><span class="tag tag-ok">12/2 NM-B</span></td>
+          <td>20A AFCI/GFCI</td>
+          <td>4–8A</td>
+          <td>Desktop server (24/7), monitors — dedicated continuous load</td>
+        </tr>
+        <tr>
+          <td class="mono">4</td>
+          <td>Lighting</td>
+          <td><span class="tag tag-ok">12/2 NM-B</span></td>
+          <td>20A AFCI/GFCI</td>
+          <td>2–4A</td>
+          <td>All basement lights and switches</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Panel Space Strategy</strong>
+      Repurpose existing Radon Fan slot (slot 28) by moving radon fan to Circuit 2. Use tandem breakers (QOT2020DFC) to fit remaining new circuits. Need approx. 2–3 tandem slots converted.
+    </div>
+
+    <h3>Continuous Load Summary</h3>
+    <table>
+      <thead>
+        <tr><th>Device</th><th>Amps</th><th>Runs 24/7?</th><th>Circuit</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>AlorAir HD55 Dehumidifier</td><td class="mono">4.1A</td><td><span class="tag tag-warn">Yes</span></td><td>Circuit 2</td></tr>
+        <tr><td>AMG Maverick Radon Fan</td><td class="mono">0.61A</td><td><span class="tag tag-warn">Yes</span></td><td>Circuit 2</td></tr>
+        <tr><td>Plex Server Desktop</td><td class="mono">~4–8A</td><td><span class="tag tag-warn">Yes</span></td><td>Circuit 3</td></tr>
+        <tr><td>Beverage Fridge (BODEGA)</td><td class="mono">~2–3A</td><td><span class="tag tag-warn">Cycles</span></td><td>Circuit 2</td></tr>
+        <tr><td>TVs + Media</td><td class="mono">~8–12A</td><td><span class="tag tag-ok">No</span></td><td>Circuit 1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PANEL -->
+  <div class="section" id="panel">
+    <h2>Panel Information</h2>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">Panel Brand</div>
+        <div class="card-value">Square D</div>
+        <div class="card-sub">QO Series — QOC30U</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Service Size</div>
+        <div class="card-value">150A</div>
+        <div class="card-sub">Main breaker at top of panel</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Total Spaces</div>
+        <div class="card-value">30</div>
+        <div class="card-sub">Currently fully occupied</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Tandem Support</div>
+        <div class="card-value">Yes</div>
+        <div class="card-sub">QOT series tandem breakers</div>
+      </div>
+    </div>
+
+    <div class="callout danger">
+      <strong>⚠ Do Not Buy</strong>
+      HOM120PDFC is Homeline series — NOT compatible with your QO panel. Green packaging = Homeline. You need yellow/black QO series packaging.
+    </div>
+
+    <h3>Breaker Part Numbers</h3>
+    <table>
+      <thead>
+        <tr><th>Use</th><th>Part Number</th><th>Type</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Single 20A circuit</td>
+          <td class="mono">QO120DFC</td>
+          <td>20A AFCI/GFCI</td>
+          <td>Pigtail neutral — correct for your panel</td>
+        </tr>
+        <tr>
+          <td>Tandem 2x20A</td>
+          <td class="mono">QOT2020DFC</td>
+          <td>Dual 20A AFCI/GFCI</td>
+          <td>Two circuits in one slot — ask store to confirm stock</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Existing Circuit Directory</h3>
+    <table>
+      <thead>
+        <tr><th>Slots</th><th>Circuit</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono">1–2</td><td>220V (double pole)</td><td></td></tr>
+        <tr><td class="mono">3–4</td><td>Range / Dryer 220V</td><td></td></tr>
+        <tr><td class="mono">5–8</td><td>A/C 220V</td><td>Double pole, 2 slots</td></tr>
+        <tr><td class="mono">9–10</td><td>Microwave / Dinette</td><td></td></tr>
+        <tr><td class="mono">11–12</td><td>Refrigerator / Dryer 110V</td><td></td></tr>
+        <tr><td class="mono">13–14</td><td>Family Room / Kitchen</td><td></td></tr>
+        <tr><td class="mono">15–16</td><td>Dining Room / Washer</td><td></td></tr>
+        <tr><td class="mono">17–18</td><td>Kitchen / East Garage Door</td><td></td></tr>
+        <tr><td class="mono">19–20</td><td>Dining Room Lighting / Whole House Vent</td><td>Tandem candidate</td></tr>
+        <tr><td class="mono">21–22</td><td>Lighting / Lighting</td><td>Tandem candidate</td></tr>
+        <tr><td class="mono">23–24</td><td>Master Bath / (unclear)</td><td></td></tr>
+        <tr><td class="mono">25–26</td><td>Hallway/Kitchen/Stairwell Lights / Furnace</td><td></td></tr>
+        <tr><td class="mono">27–28</td><td>Basement Lighting & Smokes / Radon Fan</td><td><span class="tag tag-warn">Repurpose slot 28</span></td></tr>
+        <tr><td class="mono">29–30</td><td>Dishwasher / Garage Door Opener</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WIRE & BREAKERS -->
+  <div class="section" id="wire">
+    <h2>Wire & Breaker Reference</h2>
+
+    <table>
+      <thead>
+        <tr><th>Wire Type</th><th>Use</th><th>Breaker</th><th>Color</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">12/2 NM-B</td>
+          <td>Outlets, general circuits</td>
+          <td>20A</td>
+          <td><span class="tag tag-warn">Yellow jacket</span></td>
+        </tr>
+        <tr>
+          <td class="mono">12/3 NM-B</td>
+          <td>3-way switches, switch legs needing neutral</td>
+          <td>20A</td>
+          <td><span class="tag tag-warn">Yellow jacket</span></td>
+        </tr>
+        <tr>
+          <td class="mono">14/2 NM-B</td>
+          <td>15A lighting only</td>
+          <td>15A</td>
+          <td><span class="tag tag-info">White jacket</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout danger">
+      <strong>⚠ Critical Rule — No Mixing</strong>
+      Never mix wire gauges on the same circuit. 12-gauge wire on a 15A breaker is wasteful. 14-gauge wire on a 20A breaker is a fire hazard — the breaker won't trip before the wire overheats.
+    </div>
+
+    <h3>Wire Conductor Guide</h3>
+    <table>
+      <thead>
+        <tr><th>Cable</th><th>Black</th><th>White</th><th>Red</th><th>Bare Copper</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">12/2</td>
+          <td>Hot</td>
+          <td>Neutral</td>
+          <td>—</td>
+          <td>Ground</td>
+        </tr>
+        <tr>
+          <td class="mono">12/3</td>
+          <td>Hot</td>
+          <td>Neutral</td>
+          <td>Traveler (3-way) or switched hot</td>
+          <td>Ground</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <strong>NEC 2011 Neutral Requirement</strong>
+      All switch boxes must have a neutral wire available. Run 12/3 to every switch box — required for smart switches, dimmers, and timers, and required by current code.
+    </div>
+
+    <h3>Wire Type: NM-B vs UF-B</h3>
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Use</th><th>Your Basement</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono">NM-B (Romex)</td>
+          <td>Dry indoor locations</td>
+          <td><span class="tag tag-ok">Correct Choice</span></td>
+        </tr>
+        <tr>
+          <td class="mono">UF-B</td>
+          <td>Underground, outdoor, wet/damp locations</td>
+          <td><span class="tag tag-danger">Not needed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DEVICES -->
+  <div class="section" id="devices">
+    <h2>Device Electrical Specs</h2>
+    <table>
+      <thead>
+        <tr><th>Device</th><th>Model</th><th>Amps</th><th>Watts</th><th>Voltage</th><th>24/7?</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dehumidifier</td>
+          <td>AlorAir Sentinel HD55</td>
+          <td class="mono">4.1A</td>
+          <td class="mono">—</td>
+          <td class="mono">110/120V</td>
+          <td><span class="tag tag-warn">Yes</span></td>
+        </tr>
+        <tr>
+          <td>Radon Fan</td>
+          <td>AMG Maverick</td>
+          <td class="mono">0.61A</td>
+          <td class="mono">70W</td>
+          <td class="mono">115V</td>
+          <td><span class="tag tag-warn">Yes</span></td>
+        </tr>
+        <tr>
+          <td>Beverage Fridge</td>
+          <td>BODEGA 24" Dual Zone</td>
+          <td class="mono">~2–3A</td>
+          <td class="mono">—</td>
+          <td class="mono">120V</td>
+          <td><span class="tag tag-warn">Cycles</span></td>
+        </tr>
+        <tr>
+          <td>Plex Server</td>
+          <td>Desktop PC (24/7)</td>
+          <td class="mono">~4–8A</td>
+          <td class="mono">~100–400W</td>
+          <td class="mono">120V</td>
+          <td><span class="tag tag-warn">Yes</span></td>
+        </tr>
+        <tr>
+          <td>Radon Fan (label)</td>
+          <td>AMG Maverick (confirmed = radon mitigation fan)</td>
+          <td class="mono">0.61A</td>
+          <td class="mono">70W</td>
+          <td class="mono">115V</td>
+          <td><span class="tag tag-warn">Yes</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Circuit 2 Load Check (General / Fridge Wall)</h3>
+    <table>
+      <thead>
+        <tr><th>Device</th><th>Amps</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Dehumidifier</td><td class="mono">4.1A</td></tr>
+        <tr><td>Radon Fan</td><td class="mono">0.61A</td></tr>
+        <tr><td>Beverage Fridge</td><td class="mono">~2.5A</td></tr>
+        <tr><td>General outlets (misc)</td><td class="mono">~1–2A</td></tr>
+        <tr style="background: var(--surface2)"><td><strong>Total Estimated</strong></td><td class="mono"><strong>~8–9A</strong></td></tr>
+        <tr><td>20A circuit limit (80% continuous)</td><td class="mono">16A max</td></tr>
+      </tbody>
+    </table>
+    <div class="callout info">
+      <strong>✓ Circuit 2 is well within limits</strong>
+      ~8–9A continuous draw on a 16A limit. Comfortable headroom for additional devices.
+    </div>
+  </div>
+
+  <!-- INSTALL SPECS -->
+  <div class="section" id="install">
+    <h2>Installation Specifications</h2>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-label">Outlet Height</div>
+        <div class="card-value">12"</div>
+        <div class="card-sub">From finished floor to bottom of box. Industry standard — not code mandated.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Switch Height</div>
+        <div class="card-value">48"</div>
+        <div class="card-sub">From finished floor to bottom of box. Industry standard — not code mandated.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Stud Hole Size</div>
+        <div class="card-value">⅞"</div>
+        <div class="card-sub">Paddle bit. Minimum ⅝". Use 1" for multiple wire runs.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Hole Height</div>
+        <div class="card-value">12"</div>
+        <div class="card-sub">Center of hole from floor — aligns with outlet boxes for clean 90° bend.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Nail Plate Required</div>
+        <div class="card-value">&lt;1¼"</div>
+        <div class="card-sub">Steel nail plate required when hole is within 1¼" of stud face edge.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Outlet Spacing</div>
+        <div class="card-value">12 ft</div>
+        <div class="card-sub">Max between outlets. No point on wall more than 6 ft from an outlet.</div>
+      </div>
+    </div>
+
+    <h3>Panel Working Clearance (NEC 110.26)</h3>
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>Minimum Required</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Depth in front of panel</td><td class="mono">3 feet</td></tr>
+        <tr><td>Width</td><td class="mono">30" or panel width (whichever is greater)</td></tr>
+        <tr><td>Height</td><td class="mono">6½ feet</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <strong>Panel Alcove Solution</strong>
+      Framing an open alcove around the panel eliminates the flush/extension problem from the 2" foam + framing + drywall wall depth. Alcove must maintain 30" minimum width and 3 ft clearance in front.
+    </div>
+
+    <h3>Basement Occupancy Requirements (Columbus § 4541.04)</h3>
+    <table>
+      <thead>
+        <tr><th>Requirement</th><th>Standard</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Overhead clearance (pipes, ducts, etc.)</td><td>No obstruction lower than <span class="mono">6'6"</span></td></tr>
+        <tr><td>Walls/floors (if used as sleeping room)</td><td>Must be impervious to water seepage</td></tr>
+        <tr><td>Minimum outlets per habitable room</td><td>2 wall outlets OR 1 outlet + 1 ceiling light</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CODE RULES -->
+  <div class="section" id="code">
+    <h2>Code Requirements</h2>
+
+    <h3>Columbus City Code (from your uploaded ordinance file)</h3>
+    <table>
+      <thead>
+        <tr><th>Rule</th><th>Section</th><th>Requirement</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Minimum outlets</td>
+          <td class="mono">§ 4523.04</td>
+          <td>2 wall outlets per habitable room OR 1 outlet + 1 ceiling fixture</td>
+        </tr>
+        <tr>
+          <td>Permit required</td>
+          <td class="mono">§ 4113.73</td>
+          <td>Required for all electrical work. Homeowner (occupant) can pull own permit.</td>
+        </tr>
+        <tr>
+          <td>Overhead clearance</td>
+          <td class="mono">§ 4541.04</td>
+          <td>No overhead obstruction below 6'6" in finished basement</td>
+        </tr>
+        <tr>
+          <td>Rough-in inspection</td>
+          <td class="mono">§ 4113.73</td>
+          <td>Required before closing walls — schedule before hanging drywall</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>NEC / Ohio Building Code (from web sources — not verified document)</h3>
+    <table>
+      <thead>
+        <tr><th>Rule</th><th>Section</th><th>Requirement</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>GFCI — all basement receptacles</td>
+          <td class="mono">NEC 210.8(A)(5)</td>
+          <td>All 125V 15/20A basement receptacles require GFCI</td>
+        </tr>
+        <tr>
+          <td>AFCI — finished basement</td>
+          <td class="mono">NEC 210.12</td>
+          <td>All 15/20A circuits in finished living areas require AFCI</td>
+        </tr>
+        <tr>
+          <td>Outlet spacing</td>
+          <td class="mono">NEC 210.52(A)</td>
+          <td>No point on wall more than 6 ft from outlet; any wall 2 ft+ wide needs an outlet</td>
+        </tr>
+        <tr>
+          <td>Neutral at switch</td>
+          <td class="mono">NEC 2011+</td>
+          <td>All switch boxes must have neutral wire — use 12/3 to every switch</td>
+        </tr>
+        <tr>
+          <td>Continuous load rule</td>
+          <td class="mono">NEC 210.19</td>
+          <td>Circuits loaded continuously must not exceed 80% — 20A circuit = 16A max continuous</td>
+        </tr>
+        <tr>
+          <td>Wire/breaker match</td>
+          <td class="mono">NEC 240.4</td>
+          <td>14 AWG = 15A breaker max. 12 AWG = 20A breaker max. Never mix.</td>
+        </tr>
+        <tr>
+          <td>Sump pump GFCI exception</td>
+          <td class="mono">Ohio amendment</td>
+          <td>Single receptacle for sump pump exempt if GFCI duplex within 6 ft</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Transparency Note</strong>
+      Columbus City Code rules are sourced directly from your uploaded ordinance file. NEC/Ohio Building Code rules are from web research and training knowledge — not a verified uploaded document.
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section" id="checklist">
+    <h2>Project Checklist</h2>
+    <p class="muted" style="margin-bottom:16px">Tap items to mark complete. Progress saves while page is open.</p>
+
+    <h3>Planning & Permits</h3>
+    <ul class="checklist" id="list-planning">
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Pull electrical permit from Columbus Building & Zoning Services (614-645-7433)</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Identify tandem-eligible slots on QOC30U panel</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Confirm which existing circuits can be repurposed (slot 27 basement lighting, slot 28 radon fan)</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Verify amp rating on existing basement lighting wire (confirm it's 12/2 before upgrading to 20A breaker)</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Plan outlet layout — mark every wall section 2 ft+ wide that needs an outlet</span></li>
+    </ul>
+
+    <h3>Materials to Buy</h3>
+    <ul class="checklist" id="list-materials">
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Square D QO120DFC breakers (yellow/black packaging) — buy 4</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Square D QOT2020DFC tandem breakers — quantity TBD based on available slots</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">12/2 NM-B (Romex SIMpull) — yellow jacket</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">12/3 NM-B — for all switch boxes and 3-way switch runs</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Steel nail plates — for any hole within 1¼" of stud face</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">⅞" paddle bit (and 1" for multi-wire runs)</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Electrical boxes — outlet and switch boxes</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">GFCI/AFCI receptacles (if not using breaker-level protection for all outlets)</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Panel extender ring (if alcove approach doesn't fully solve panel depth issue)</span></li>
+    </ul>
+
+    <h3>Rough-In Work</h3>
+    <ul class="checklist" id="list-roughin">
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Frame alcove around panel — minimum 30" wide, maintain 3 ft clearance in front</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Mark outlet box heights — 12" from finished floor (consistent throughout)</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Mark switch box heights — 48" from finished floor</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Drill ⅞" holes through studs at 12" height</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Install nail plates wherever holes are within 1¼" of stud face</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Run 12/2 for all outlet circuits (Circuits 1, 2, 3)</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Run 12/2 for lighting circuit (Circuit 4)</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Run 12/3 to all switch boxes</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Run 12/3 between 3-way switch pairs</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Install tandem breakers in panel to free up slots</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Install new QO120DFC breakers for basement circuits</span></li>
+    </ul>
+
+    <h3>Inspections & Finish</h3>
+    <ul class="checklist" id="list-finish">
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Schedule rough-in inspection BEFORE hanging drywall</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Pass rough-in inspection</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Hang drywall</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Install outlets and switches</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Update panel directory label with new circuit names</span></li>
+      <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Final inspection</span></li>
+    </ul>
+  </div>
+
+</main>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggle(el) {
+    el.classList.toggle('done');
+    const text = el.nextElementSibling;
+    text.classList.toggle('done');
+  }
+</script>
+
+</body>
+</html>
