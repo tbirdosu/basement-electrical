@@ -466,22 +466,145 @@
         <tr><th>Slots</th><th>Circuit</th><th>Notes</th></tr>
       </thead>
       <tbody>
-        <tr><td class="mono">1–2</td><td>220V (double pole)</td><td></td></tr>
-        <tr><td class="mono">3–4</td><td>Range / Dryer 220V</td><td></td></tr>
-        <tr><td class="mono">5–8</td><td>A/C 220V</td><td>Double pole — slots 5&amp;7 left bus, 6&amp;8 right bus</td></tr>
+        <tr><td class="mono">1–2</td><td>220V / Dryer (double pole)</td><td></td></tr>
+        <tr><td class="mono">3–4</td><td>Range / Dryer 220V (double pole)</td><td></td></tr>
+        <tr><td class="mono">5–8</td><td>A/C 220V (4-slot double pole)</td><td>Slots 5&amp;7 left bus, 6&amp;8 right bus</td></tr>
         <tr><td class="mono">9–10</td><td>Microwave / Dinette</td><td></td></tr>
         <tr><td class="mono">11–12</td><td>Refrigerator / Dryer 110V</td><td></td></tr>
         <tr><td class="mono">13–14</td><td>Family Room / Kitchen</td><td></td></tr>
         <tr><td class="mono">15–16</td><td>Dining Room / Washer</td><td></td></tr>
-        <tr><td class="mono">17–18</td><td>Kitchen / East Garage Door</td><td></td></tr>
-        <tr><td class="mono">19–20</td><td>Dining Room Lighting / Whole House Vent</td><td><span class="tag tag-warn">Step 2 — QOT1515</span></td></tr>
-        <tr><td class="mono">21–22</td><td>Lighting / Lighting</td><td><span class="tag tag-warn">Step 1 — QOT1515 first</span></td></tr>
-        <tr><td class="mono">23–24</td><td>Master Bath / (unclear)</td><td></td></tr>
-        <tr><td class="mono">25–26</td><td>Hallway/Kitchen/Stairwell Lights / Furnace</td><td></td></tr>
-        <tr><td class="mono">27–28</td><td>Basement Lighting &amp; Smokes / Radon Fan</td><td><span class="tag tag-warn">Step 3 — move radon fan, free slot 28</span></td></tr>
-        <tr><td class="mono">29–30</td><td>Dishwasher / Garage Door Opener</td><td><span class="tag tag-info">Step 4 if needed — QOT1515</span></td></tr>
+        <tr><td class="mono">17–18</td><td>Kitchen / East Garage Door Opener</td><td></td></tr>
+        <tr><td class="mono">19–20</td><td>Dining Room Lighting (Chandelier) / Whole House Vent</td><td><span class="tag tag-warn">Step 2 — QOT1515CP</span></td></tr>
+        <tr><td class="mono">21–22</td><td>Lighting / Lighting</td><td><span class="tag tag-warn">Step 1 — QOT1515CP first</span></td></tr>
+        <tr><td class="mono">23–24</td><td>Master Bath / Disposal</td><td></td></tr>
+        <tr><td class="mono">25–26</td><td>Hallway, Kitchen, Dinette, Stairwell Lights / Furnace</td><td></td></tr>
+        <tr><td class="mono">27–28</td><td>Basement Lighting &amp; Smokes / Sump Pump (Radon Fan Circuit)</td><td><span class="tag tag-warn">Step 3 — move radon fan, free slot 28</span></td></tr>
+        <tr><td class="mono">29–30</td><td>Dishwasher / Garage Door Opener</td><td><span class="tag tag-info">Step 4 if needed — QOT1515CP</span></td></tr>
       </tbody>
     </table>
+
+    <h3>Panel Diagram — Square D QOC30U</h3>
+    <div style="background:#111;border:2px solid #334;border-radius:8px;padding:14px 12px;font-family:'IBM Plex Mono',monospace;font-size:11px;margin-top:12px">
+
+      <!-- Main breaker -->
+      <div style="text-align:center;margin-bottom:12px">
+        <div style="display:inline-block;background:#2a2a38;border:2px solid var(--accent);border-radius:5px;padding:6px 36px;color:var(--accent);font-weight:600;letter-spacing:0.1em;font-size:12px">
+          ⚡ MAIN BREAKER — 150A
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-size:10px">
+        <span style="background:#3a2020;border:1px solid #7a4040;color:#f0a0a0;padding:2px 8px;border-radius:3px">■ 220V double-pole</span>
+        <span style="background:#222;border:1px solid #555;color:#aaa;padding:2px 8px;border-radius:3px">■ Existing circuit</span>
+        <span style="background:#1a3050;border:1px solid #3a6aaa;color:#90c0f0;padding:2px 8px;border-radius:3px">■ Tandem (consolidate)</span>
+        <span style="background:#1a3a1a;border:1px solid #4a8a4a;color:#90e090;padding:2px 8px;border-radius:3px">■ NEW basement circuit</span>
+      </div>
+
+      <!-- Bus bar headers -->
+      <div style="display:grid;grid-template-columns:1fr 44px 1fr;gap:4px;text-align:center;color:#556;font-size:9px;margin-bottom:4px;letter-spacing:0.05em">
+        <div>LEFT BUS — ODD SLOTS</div><div></div><div>RIGHT BUS — EVEN SLOTS</div>
+      </div>
+
+      <!-- Breaker rows -->
+      <div id="panel-diagram-rows"></div>
+
+      <!-- Bottom bars -->
+      <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <div style="background:#1a3a1a;border:1px solid #3a6a3a;border-radius:4px;padding:5px 16px;color:#70c070;text-align:center;font-size:10px">NEUTRAL BAR<br><span style="color:#446;font-size:9px">white wires</span></div>
+        <div style="background:#3a1a1a;border:1px solid #6a3a3a;border-radius:4px;padding:5px 16px;color:#c07070;text-align:center;font-size:10px">GROUND BAR<br><span style="color:#446;font-size:9px">bare/green wires</span></div>
+        <div style="background:#2a2a18;border:1px solid #6a6a38;border-radius:4px;padding:5px 16px;color:#c0c070;text-align:center;font-size:10px">DOORBELL XFMR<br><span style="color:#446;font-size:9px">leave alone</span></div>
+      </div>
+    </div>
+
+    <script>
+    (function(){
+      const ROWS = [
+        { type:'dp',  slots:'1–2',  label:'220V / Dryer',                      amps:'—' },
+        { type:'dp',  slots:'3–4',  label:'Range / Dryer 220V',                amps:'—' },
+        { type:'dp4', slots:'5–8',  label:'A/C 220V (4-slot double-pole)',      amps:'—' },
+        { type:'pair', L:{s:9, label:'Microwave',                   amps:'—',  t:'exist'}, R:{s:10, label:'Dinette',                        amps:'—',  t:'exist'} },
+        { type:'pair', L:{s:11,label:'Refrigerator',                amps:'—',  t:'exist'}, R:{s:12, label:'Dryer 110V',                      amps:'—',  t:'exist'} },
+        { type:'pair', L:{s:13,label:'Family Room',                 amps:'—',  t:'exist'}, R:{s:14, label:'Kitchen',                         amps:'—',  t:'exist'} },
+        { type:'pair', L:{s:15,label:'Dining Room',                 amps:'—',  t:'exist'}, R:{s:16, label:'Washer',                          amps:'—',  t:'exist'} },
+        { type:'pair', L:{s:17,label:'Kitchen',                     amps:'—',  t:'exist'}, R:{s:18, label:'East Garage Door Opener',          amps:'—',  t:'exist'} },
+        { type:'pair', L:{s:19,label:'Dining Rm Lighting (Chand.)', amps:'—',  t:'tandem',note:'Step 2 → QOT1515CP · frees 1 slot'}, R:{s:20,label:'Whole House Vent', amps:'—', t:'tandem',note:'paired with slot 19'} },
+        { type:'pair', L:{s:21,label:'Lighting',                    amps:'—',  t:'tandem',note:'Step 1 → QOT1515CP · frees 1 slot'}, R:{s:22,label:'Lighting',          amps:'—', t:'tandem',note:'paired with slot 21'} },
+        { type:'pair', L:{s:23,label:'Master Bath',                 amps:'—',  t:'exist'}, R:{s:24, label:'Disposal',                        amps:'—',  t:'exist'} },
+        { type:'pair', L:{s:25,label:'Hallway, Kitchen, Dinette, Stairwell Lights', amps:'—', t:'exist'}, R:{s:26, label:'Furnace',           amps:'—',  t:'exist'} },
+        { type:'pair', L:{s:27,label:'Basement Lighting & Smokes',  amps:'—',  t:'exist'}, R:{s:28, label:'Sump Pump / Radon Fan Circuit',   amps:'—',  t:'exist', note:'Step 3: move radon → frees slot 28'} },
+        { type:'pair', L:{s:29,label:'Dishwasher',                  amps:'—',  t:'exist'}, R:{s:30, label:'Garage Door Opener',              amps:'—',  t:'exist', note:'Step 4 if needed → QOT1515CP'} },
+        { type:'new-header' },
+        { type:'new', s:'Freed slot A (Step 1 — was 21/22)', label:'Basement NE Corner',        amps:'20A', part:'QO120DFC', desc:'Circuit 1 — TVs / General' },
+        { type:'new', s:'Freed slot B (Step 2 — was 19/20)', label:'Basement NE Corner',        amps:'20A', part:'QO120DFC', desc:'Circuit 2 — General / Bar Fridge' },
+        { type:'new', s:'Freed slot C (Step 3 — was 28)',    label:'Basement NE Corner',        amps:'20A', part:'QO120DFC', desc:'Circuit 3 — Lighting' },
+        { type:'new', s:'Freed slot D (Step 4 — was 29/30)', label:'Basement SE Corner (PLEX)', amps:'20A', part:'QO120DFC', desc:'Circuit 4 — Plex / Sewing' },
+      ];
+
+      const TC = {
+        exist:  {bg:'#1e1e1e',border:'#444',   text:'#ccc',   sub:'#666'},
+        tandem: {bg:'#1a2a42',border:'#3a6aaa', text:'#90c0f0',sub:'#6090c0'},
+        new:    {bg:'#1a3a1a',border:'#4a8a4a', text:'#90e090',sub:'#5a9a5a'},
+        dp:     {bg:'#3a1e1e',border:'#7a3a3a', text:'#f0a0a0',sub:'#8a5050'},
+      };
+
+      function box(s, label, amps, t, note) {
+        const c = TC[t]||TC.exist;
+        return `<div style="background:${c.bg};border:1px solid ${c.border};border-radius:3px;padding:4px 7px;min-width:0;flex:1">
+          <div style="font-size:9px;color:${c.sub}">Slot ${s}</div>
+          <div style="font-size:11px;color:${c.text};overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${label}">${label}</div>
+          <div style="font-size:10px;color:${c.sub};font-weight:700">${amps}</div>
+          ${note?`<div style="font-size:8px;color:#6090b0;margin-top:1px">${note}</div>`:''}
+        </div>`;
+      }
+
+      function mid(txt) {
+        return `<div style="width:44px;flex-shrink:0;text-align:center;font-size:9px;color:#446;display:flex;align-items:center;justify-content:center">${txt}</div>`;
+      }
+
+      const container = document.getElementById('panel-diagram-rows');
+      ROWS.forEach(row => {
+        const d = document.createElement('div');
+        d.style.marginBottom = '3px';
+        if (row.type === 'dp') {
+          d.innerHTML = `<div style="background:#3a1e1e;border:1px solid #7a3a3a;border-radius:3px;padding:5px 12px;display:flex;justify-content:space-between;align-items:center">
+            <span style="color:#966;font-size:9px">Slots ${row.slots}</span>
+            <span style="color:#f0a0a0;font-size:12px;font-weight:600">${row.label}</span>
+            <span style="color:#c07070;font-size:10px;font-weight:700;background:#2a1010;border:1px solid #5a2a2a;border-radius:3px;padding:2px 8px">⚡ 220V DOUBLE-POLE</span>
+          </div>`;
+        } else if (row.type === 'dp4') {
+          d.innerHTML = `<div style="background:#3a1e1e;border:2px solid #8a3a3a;border-radius:3px;padding:5px 12px;display:flex;justify-content:space-between;align-items:center">
+            <span style="color:#966;font-size:9px">Slots ${row.slots}</span>
+            <span style="color:#f0a0a0;font-size:12px;font-weight:600">${row.label}</span>
+            <span style="color:#c07070;font-size:10px;font-weight:700;background:#2a1010;border:1px solid #5a2a2a;border-radius:3px;padding:2px 8px">⚡ 220V QUAD-SLOT</span>
+          </div>`;
+        } else if (row.type === 'new-header') {
+          d.style.marginTop = '10px';
+          d.innerHTML = `<div style="padding:4px 8px;background:#0d1f0d;border-left:3px solid #4a8a4a;color:#6ab06a;font-size:9px;letter-spacing:0.07em;text-transform:uppercase">
+            ↓ New Basement Circuits — installed in freed slots after tandem consolidation
+          </div>`;
+        } else if (row.type === 'new') {
+          d.innerHTML = `<div style="background:#1a3a1a;border:1px solid #3a7a3a;border-radius:3px;padding:5px 10px;display:grid;grid-template-columns:90px 1fr 1fr;gap:8px;align-items:center">
+            <div style="text-align:center;background:#0d1f0d;border-radius:3px;padding:3px 6px">
+              <div style="color:#60c060;font-weight:700;font-size:11px">${row.amps}</div>
+              <div style="color:#3a7a3a;font-size:9px">${row.part}</div>
+            </div>
+            <div>
+              <div style="color:#90e090;font-weight:600;font-size:12px">${row.label}</div>
+              <div style="color:#5a9a5a;font-size:9px">${row.desc}</div>
+            </div>
+            <div style="color:#446;font-size:9px;text-align:right">${row.s}</div>
+          </div>`;
+        } else {
+          const L = row.L, R = row.R;
+          d.style.display = 'flex';
+          d.style.gap = '4px';
+          d.innerHTML = box(L.s, L.label, L.amps, L.t, L.note) + mid(`${L.s}/${R.s}`) + box(R.s, R.label, R.amps, R.t, R.note);
+        }
+        container.appendChild(d);
+      });
+    })();
+    </script>
   </div>
 
   <!-- WIRE & BREAKERS -->
