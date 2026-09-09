@@ -1133,9 +1133,9 @@
 
     <!-- Option tabs -->
     <div style="display:flex;gap:0;margin-bottom:18px;border-bottom:1px solid var(--border)">
-      <button id="rt-a" onclick="showRT('a')" style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--accent);background:transparent;border:none;border-bottom:3px solid var(--accent);padding:10px 16px 10px 0;margin-right:14px;cursor:pointer">Option A — Top 3'0"</button>
-      <button id="rt-b" onclick="showRT('b')" style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:3px solid transparent;padding:10px 16px 10px 0;margin-right:14px;cursor:pointer">Option B — Top 3'6"</button>
-      <button id="rt-c" onclick="showRT('c')" style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:3px solid transparent;padding:10px 16px 10px 0;cursor:pointer">Option C — Symmetric 3'</button>
+      <button id="rt-a" data-rt="a" style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--accent);background:transparent;border:none;border-bottom:3px solid var(--accent);padding:10px 16px 10px 0;margin-right:14px;cursor:pointer">Option A — Top 3'0"</button>
+      <button id="rt-b" data-rt="b" style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:3px solid transparent;padding:10px 16px 10px 0;margin-right:14px;cursor:pointer">Option B — Top 3'6"</button>
+      <button id="rt-c" data-rt="c" style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:3px solid transparent;padding:10px 16px 10px 0;cursor:pointer">Option C — Symmetric 3'</button>
     </div>
 
     <!-- Option A diagram -->
@@ -1261,6 +1261,19 @@
     document.getElementById(id).classList.add('active');
     btn.classList.add('active');
   }
+
+  function showRT(opt) {
+    ['a','b','c'].forEach(x => {
+      document.getElementById('rt-panel-'+x).style.display = x === opt ? 'block' : 'none';
+      const btn = document.getElementById('rt-'+x);
+      btn.style.color = x === opt ? 'var(--accent)' : 'var(--muted)';
+      btn.style.borderBottomColor = x === opt ? 'var(--accent)' : 'transparent';
+    });
+  }
+
+  document.querySelectorAll('[data-rt]').forEach(btn => {
+    btn.addEventListener('click', () => showRT(btn.dataset.rt));
+  });
 
   function toggle(el) {
     el.classList.toggle('done');
