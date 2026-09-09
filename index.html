@@ -284,6 +284,9 @@
   <button onclick="show('install', this)">Install Specs</button>
   <button onclick="show('code', this)">Code Rules</button>
   <button onclick="show('checklist', this)">Checklist</button>
+  <button onclick="show('lighting', this)">Lighting & Dimmers</button>
+  <button onclick="show('flicker', this)">LED Flicker Fix</button>
+  <button onclick="show('recessed', this)">Recessed Lighting</button>
 </nav>
 
 <main>
@@ -966,6 +969,287 @@
       <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Update panel directory label with new circuit names</span></li>
       <li><div class="check" onclick="toggle(this)"></div><span class="check-text">Final inspection</span></li>
     </ul>
+  </div>
+
+  <!-- ══ LIGHTING & DIMMERS ══ -->
+  <div class="section" id="lighting">
+    <h2>Your Dimmer Hardware</h2>
+
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:12px;display:flex;gap:14px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;width:84px;flex-shrink:0;padding-top:2px">Primary</div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:14px;font-weight:600">Lutron Maestro MACL-153M</div>
+        <div style="color:var(--muted);font-size:13px;margin-top:3px">The dimmer wired to the load. All programming lives here.</div>
+      </div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:12px;display:flex;gap:14px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;width:84px;flex-shrink:0;padding-top:2px">Companion</div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:14px;font-weight:600">Lutron Maestro MA-R</div>
+        <div style="color:var(--muted);font-size:13px;margin-top:3px">Relays commands only — no independent settings, no radio, no app pairing. Any "app-controlled" listing for this model is bad listing data.</div>
+      </div>
+    </div>
+
+    <h2>Entering Advanced Programming Mode</h2>
+    <p>Do this on the <strong>MACL-153M</strong> (the primary), not the MA-R:</p>
+    <ol style="margin:8px 0 14px 20px">
+      <li style="margin-bottom:6px">Pull the FASST tab (bottom of the switch) out, wait 5 seconds.</li>
+      <li style="margin-bottom:6px">Hold the tap button, push the FASST tab back in while still holding, keep holding ~5 seconds.</li>
+      <li style="margin-bottom:6px">Release when the bottom indicator light starts blinking slowly.</li>
+      <li style="margin-bottom:6px">Use raise/lower to pick an option, tap to enter it.</li>
+    </ol>
+    <p>No activity for a minute exits automatically. To save and exit immediately, hold the tap button until the indicator light stops blinking. Full factory reset uses the same entry sequence but hold the tap button for <strong>15 seconds</strong> instead of 5.</p>
+
+    <h2>Option Reference</h2>
+    <table>
+      <thead><tr><th>#</th><th>Setting</th><th>Range / Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="mono" style="color:var(--accent);width:28px">1</td><td>Preset level</td><td>Sets the brightness recalled on tap-on</td></tr>
+        <tr><td class="mono" style="color:var(--accent)">2</td><td>Fade ON time</td><td>0.75–15 sec (default 0.75s)</td></tr>
+        <tr><td class="mono" style="color:var(--accent)">3</td><td>Fade OFF time</td><td>0.75–15 sec (default 2.5s)</td></tr>
+        <tr><td class="mono" style="color:var(--accent)">4</td><td>Delayed fade-to-off</td><td>10–70 sec (default 30s)</td></tr>
+        <tr><td class="mono" style="color:var(--accent)">5</td><td>Indicator lights (night light)</td><td>Enable/disable the LED glow</td></tr>
+        <tr><td class="mono" style="color:var(--accent)">6</td><td>Low-end trim</td><td>Fixes flicker at the bottom of the dimming range on LED bulbs</td></tr>
+        <tr><td class="mono" style="color:var(--accent)">7</td><td>High-end trim</td><td>Caps maximum output</td></tr>
+      </tbody>
+    </table>
+
+    <div style="background:#17322c;border:1px solid rgba(95,185,163,0.4);border-radius:6px;padding:14px 16px;margin:16px 0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5fb9a3;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:6px">Good to know</div>
+      Fade ON/OFF times only apply when switching from the MACL-153M or MA-R. If a plain mechanical 3-way switch is also in the circuit, toggling from that ignores the fade setting entirely.
+    </div>
+
+    <h3>Turning Off Night Light Mode</h3>
+    <p>Enter option 5, press raise/lower to turn the indicator glow off, tap to save. This can also improve compatibility with LED/CFL bulbs that don't fully extinguish on some dimmers.</p>
+
+    <h3>Fixing Low-End LED Flicker</h3>
+    <p>Option 6 (low-end trim) is the one to use. Shortcut: hold tap + lower together until an LED blinks, adjust with raise/lower until the bulb is steady at its lowest setting, tap to save.</p>
+
+    <h2>Smart Home / App Control</h2>
+    <p>The MACL-153M has no radio — the advanced programming mode described above is the entire "settings" interface. There's no upgrade path or add-on module; getting app or voice control means replacing both boxes:</p>
+    <ul style="margin:8px 0 14px 20px">
+      <li style="margin-bottom:6px"><span class="tag">Caséta dimmer (PD-6WCL)</span> or <span class="tag">Diva Smart Dimmer (DVRF-6L)</span> — the Diva looks closer to a standard paddle. Both require the Lutron Smart Hub.</li>
+      <li style="margin-bottom:6px">The MA-R companion is replaced with a <span class="tag">Pico remote</span> — Caséta doesn't support MA-R at all. The smart dimmer goes in the primary box; the companion box gets its wires capped and a Pico mounted over it.</li>
+      <li style="margin-bottom:6px"><span class="tag">Sunnata</span> touch dimmers are also available in RF versions if you'd prefer a different paddle style.</li>
+    </ul>
+
+    <div style="background:#331d1d;border:1px solid rgba(226,96,95,0.4);border-radius:6px;padding:14px 16px;margin:16px 0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--danger);text-transform:uppercase;letter-spacing:0.03em;margin-bottom:6px">⚠ If the fixture is an integrated smart light</div>
+      Don't put an integrated-LED smart fixture (its own driver + Wi-Fi radio, e.g. Hubspace) on <em>any</em> dimmer. It needs constant full line voltage — dimming it externally causes flicker, buzzing, or a fixture that won't power up. Pull both switches and replace with two plain mechanical 3-way switches left permanently on. Brightness, scheduling and color move into the fixture's own app.
+    </div>
+  </div>
+
+  <!-- ══ LED FLICKER FIX ══ -->
+  <div class="section" id="flicker">
+    <h2>Your Hardware</h2>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:12px;display:flex;gap:14px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;width:84px;flex-shrink:0;padding-top:2px">Dimmer</div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:14px;font-weight:600">Leviton DSL01</div>
+        <div style="color:var(--muted);font-size:13px;margin-top:3px">No-neutral (2-wire) slide dimmer. Two installed — one at each end of a 3-way run.</div>
+      </div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 16px;margin-bottom:12px;display:flex;gap:14px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;width:84px;flex-shrink:0;padding-top:2px">Fixtures</div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:14px;font-weight:600">3× LED disk lights (generic, Amazon)</div>
+        <div style="color:var(--muted);font-size:13px;margin-top:3px">Unbranded flush-mount disks. Not on Leviton's dimmer compatibility list — nobody's tested them against it.</div>
+      </div>
+    </div>
+
+    <h2>Root Cause</h2>
+    <div style="background:#331d1d;border:1px solid rgba(226,96,95,0.4);border-radius:6px;padding:14px 16px;margin:16px 0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--danger);text-transform:uppercase;letter-spacing:0.03em;margin-bottom:6px">Diagnosis</div>
+      Two dimmers wired into one 3-way circuit. A 3-way with dimming can only have <strong>one</strong> dimmer — the other location must be a plain mechanical 3-way switch.
+    </div>
+    <p>Both DSL01s are no-neutral, phase-cut dimmers that steal operating power through the load and time their triac firing off the AC waveform. With two in series, each one chops the waveform the other is trying to read for its zero-cross timing — neither can hold a stable firing point. That produces flicker across the entire dimming range. Adding two more fixtures tripled the inrush current spike at each firing, pushing it over the edge.</p>
+
+    <h2>The Fix</h2>
+    <p>Keep one DSL01 as the dimmer. Replace the dimmer at the <strong>other</strong> end with a plain 3-way switch:</p>
+    <ul style="margin:8px 0 14px 20px">
+      <li style="margin-bottom:6px"><span class="tag">Leviton 5603-2W</span> — standard white Decora paddle</li>
+      <li style="margin-bottom:6px"><span class="tag">Leviton 5603-2AW</span> — same, antimicrobial coating</li>
+      <li style="margin-bottom:6px"><span class="tag">Leviton 5603-2WS</span> — same, no coating</li>
+    </ul>
+    <p>All are 15A, 120V, Decora rocker — matches the DSL01 paddle you're keeping.</p>
+
+    <h3>Wiring the Replacement</h3>
+    <div style="background:#17322c;border:1px solid rgba(95,185,163,0.4);border-radius:6px;padding:14px 16px;margin:16px 0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#5fb9a3;text-transform:uppercase;letter-spacing:0.03em;margin-bottom:6px">Before you start</div>
+      Kill the breaker and verify dead with a tester. Label the wire on the old dimmer's <strong>common/black</strong> terminal before disconnecting — that's the one wire that matters for correct reconnection.
+    </div>
+    <div style="border-bottom:1px solid var(--border);padding:8px 0;display:flex;gap:10px"><div style="font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:13px;width:90px;flex-shrink:0">Common</div><div>Wire from old dimmer's black/common terminal → new switch's dark/common screw.</div></div>
+    <div style="border-bottom:1px solid var(--border);padding:8px 0;display:flex;gap:10px"><div style="font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:13px;width:90px;flex-shrink:0">Travelers</div><div>The two remaining wires → the two brass screws, either order.</div></div>
+    <div style="padding:8px 0;display:flex;gap:10px"><div style="font-family:'IBM Plex Mono',monospace;color:var(--accent);font-size:13px;width:90px;flex-shrink:0">Ground</div><div>Ground wire → green screw.</div></div>
+
+    <h2>If Flicker Persists After the Swap</h2>
+    <ol style="margin:8px 0 14px 20px">
+      <li style="margin-bottom:8px"><strong>Confirm same batch:</strong> mixed LED drivers beat against each other. Make sure all three disks are the identical model/batch.</li>
+      <li style="margin-bottom:8px"><strong>Diagnostic test:</strong> temporarily clip an incandescent or halogen load onto the circuit. Smooth dimming with that load confirms the dimmer's fine and the drivers are the weak link.</li>
+      <li style="margin-bottom:8px"><strong>Better dimmer:</strong> <span class="tag">Lutron Diva LED+ (DVCL-153P)</span> handles bad driver inrush noticeably better than the DSL01, with a wider low-end trim range. Drop-in replacement in the same 3-way.</li>
+      <li style="margin-bottom:8px"><strong>Last resort — dummy load:</strong> <span class="tag">Lutron LUT-MLC</span> flicker-eliminator module, wired in parallel at one fixture, smooths out driver-timing fights the dimmer can't otherwise fix.</li>
+    </ol>
+    <p style="color:var(--muted);font-size:13px">"Dimmable" on a generic listing usually just means the fixture won't be damaged on a dimmer — not that it dims smoothly. If the swap doesn't fully resolve it, new fixtures from Leviton's tested-compatible list (Halo, Lithonia, Feit) are the more reliable long-term fix.</p>
+  </div>
+
+  <!-- ══ RECESSED LIGHTING ══ -->
+  <div class="section" id="recessed">
+    <h2>Room Specs</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 14px;flex:1 1 140px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">Left room</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--accent);margin-top:3px">12' × 21'8" usable</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 14px;flex:1 1 140px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">Right room</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--accent);margin-top:3px">12' × 14'10"</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 14px;flex:1 1 140px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">Ceiling height</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--accent);margin-top:3px">85.5"</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 14px;flex:1 1 140px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">Columns</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--accent);margin-top:3px">3' • 6' • 3'</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 14px;flex:1 1 140px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em">Total fixtures</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--accent);margin-top:3px">10 (6 left / 4 right)</div>
+      </div>
+    </div>
+
+    <h2>Compare Options</h2>
+    <table>
+      <thead>
+        <tr><th>Option</th><th>Top row (left)</th><th>Middle gaps (left)</th><th>Bottom row (left)</th><th>Right room bottom row</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono" style="color:var(--accent)">A</td><td>3'0"</td><td>7'6.3" each</td><td>3'7.3" from console</td><td>4'3.7" from back wall</td></tr>
+        <tr><td class="mono" style="color:var(--accent)">B</td><td>3'6"</td><td>7'3.3" each</td><td>3'7.3" from console</td><td>4'0.7" from back wall</td></tr>
+        <tr><td class="mono" style="color:var(--accent)">C</td><td>3'0"</td><td>7'10" each</td><td>3'0" from console</td><td>4'0" from back wall</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0;margin-bottom:20px">In all three, the right room's two rows are aligned with the left room's top two rows — the dashed lines mark that shared line across the beam. Column spacing (3' from side walls, 6' between) is identical in every option and both rooms.</p>
+
+    <!-- Option tabs -->
+    <div style="display:flex;gap:0;margin-bottom:18px;border-bottom:1px solid var(--border)">
+      <button id="rt-a" onclick="showRT('a')" style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--accent);background:transparent;border:none;border-bottom:3px solid var(--accent);padding:10px 16px 10px 0;margin-right:14px;cursor:pointer">Option A — Top 3'0"</button>
+      <button id="rt-b" onclick="showRT('b')" style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:3px solid transparent;padding:10px 16px 10px 0;margin-right:14px;cursor:pointer">Option B — Top 3'6"</button>
+      <button id="rt-c" onclick="showRT('c')" style="font-family:'IBM Plex Sans',sans-serif;font-size:14px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:3px solid transparent;padding:10px 16px 10px 0;cursor:pointer">Option C — Symmetric 3'</button>
+    </div>
+
+    <!-- Option A diagram -->
+    <div id="rt-panel-a" style="display:block">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:14px">
+        <svg width="100%" viewBox="0 0 380 370" role="img">
+          <text font-size="13" font-weight="700" fill="#dde3f0" font-family="IBM Plex Sans,sans-serif" x="112" y="30" text-anchor="middle">Left room</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="112" y="44" text-anchor="middle">12' × 21'8" usable</text>
+          <text font-size="13" font-weight="700" fill="#dde3f0" font-family="IBM Plex Sans,sans-serif" x="267" y="30" text-anchor="middle">Right room</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="267" y="44" text-anchor="middle">12' × 14'10"</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="112" y="58" text-anchor="middle">3' • 6' • 3'</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="267" y="58" text-anchor="middle">3' • 6' • 3'</text>
+          <rect x="40" y="68" width="145" height="261.8" rx="4" fill="none" stroke="#333d5a" stroke-width="1.2"/>
+          <rect x="195" y="68" width="145" height="179.3" rx="4" fill="none" stroke="#333d5a" stroke-width="1.2"/>
+          <rect x="183" y="68" width="4" height="261.8" fill="#333d5a" opacity="0.8"/>
+          <line x1="40" y1="104.25" x2="340" y2="104.25" stroke="#4eb8a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+          <line x1="40" y1="195.26" x2="340" y2="195.26" stroke="#4eb8a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="90" text-anchor="middle">3'0"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="153.5" text-anchor="middle">7'6.3"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="244.5" text-anchor="middle">7'6.3"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="312" text-anchor="middle">3'7.3"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="267" y="90" text-anchor="middle">3'0"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="267" y="153.5" text-anchor="middle">7'6.3"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="267" y="225.5" text-anchor="middle">4'3.7"</text>
+          <circle cx="76.3" cy="104.25" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="148.8" cy="104.25" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="76.3" cy="195.26" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="148.8" cy="195.26" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="76.3" cy="286.19" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="148.8" cy="286.19" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="231.3" cy="104.25" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="303.8" cy="104.25" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="231.3" cy="195.26" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="303.8" cy="195.26" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+        </svg>
+      </div>
+      <p style="font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0">Bottom row stays put — only the top row moves closer to the wall. Middle gaps widen to absorb the difference.</p>
+    </div>
+
+    <!-- Option B diagram -->
+    <div id="rt-panel-b" style="display:none">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:14px">
+        <svg width="100%" viewBox="0 0 380 370" role="img">
+          <text font-size="13" font-weight="700" fill="#dde3f0" font-family="IBM Plex Sans,sans-serif" x="112" y="30" text-anchor="middle">Left room</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="112" y="44" text-anchor="middle">12' × 21'8" usable</text>
+          <text font-size="13" font-weight="700" fill="#dde3f0" font-family="IBM Plex Sans,sans-serif" x="267" y="30" text-anchor="middle">Right room</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="267" y="44" text-anchor="middle">12' × 14'10"</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="112" y="58" text-anchor="middle">3' • 6' • 3'</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="267" y="58" text-anchor="middle">3' • 6' • 3'</text>
+          <rect x="40" y="68" width="145" height="261.8" rx="4" fill="none" stroke="#333d5a" stroke-width="1.2"/>
+          <rect x="195" y="68" width="145" height="179.3" rx="4" fill="none" stroke="#333d5a" stroke-width="1.2"/>
+          <rect x="183" y="68" width="4" height="261.8" fill="#333d5a" opacity="0.8"/>
+          <line x1="40" y1="110.29" x2="340" y2="110.29" stroke="#4eb8a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+          <line x1="40" y1="198.27" x2="340" y2="198.27" stroke="#4eb8a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="93" text-anchor="middle">3'6"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="158.5" text-anchor="middle">7'3.3"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="246.5" text-anchor="middle">7'3.3"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="312" text-anchor="middle">3'7.3"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="267" y="93" text-anchor="middle">3'6"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="267" y="158.5" text-anchor="middle">7'3.3"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="267" y="227" text-anchor="middle">4'0.7"</text>
+          <circle cx="76.3" cy="110.29" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="148.8" cy="110.29" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="76.3" cy="198.27" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="148.8" cy="198.27" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="76.3" cy="286.19" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="148.8" cy="286.19" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="231.3" cy="110.29" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="303.8" cy="110.29" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="231.3" cy="198.27" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="303.8" cy="198.27" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+        </svg>
+      </div>
+      <p style="font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0">Slightly less aggressive pull-in than Option A — a bit more clearance over the cabinets, a bit less gap between rows.</p>
+    </div>
+
+    <!-- Option C diagram -->
+    <div id="rt-panel-c" style="display:none">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:14px">
+        <svg width="100%" viewBox="0 0 380 370" role="img">
+          <text font-size="13" font-weight="700" fill="#dde3f0" font-family="IBM Plex Sans,sans-serif" x="112" y="30" text-anchor="middle">Left room</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="112" y="44" text-anchor="middle">12' × 21'8" usable</text>
+          <text font-size="13" font-weight="700" fill="#dde3f0" font-family="IBM Plex Sans,sans-serif" x="267" y="30" text-anchor="middle">Right room</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="267" y="44" text-anchor="middle">12' × 14'10"</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="112" y="58" text-anchor="middle">3' • 6' • 3'</text>
+          <text font-size="11.5" fill="#8892aa" font-family="IBM Plex Mono,monospace" x="267" y="58" text-anchor="middle">3' • 6' • 3'</text>
+          <rect x="40" y="68" width="145" height="261.8" rx="4" fill="none" stroke="#333d5a" stroke-width="1.2"/>
+          <rect x="195" y="68" width="145" height="179.3" rx="4" fill="none" stroke="#333d5a" stroke-width="1.2"/>
+          <rect x="183" y="68" width="4" height="261.8" fill="#333d5a" opacity="0.8"/>
+          <line x1="40" y1="104.25" x2="340" y2="104.25" stroke="#4eb8a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+          <line x1="40" y1="198.91" x2="340" y2="198.91" stroke="#4eb8a0" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="90" text-anchor="middle">3'0"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="155.5" text-anchor="middle">7'10"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="250" text-anchor="middle">7'10"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="112" y="315.5" text-anchor="middle">3'0"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="267" y="90" text-anchor="middle">3'0"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="267" y="155.5" text-anchor="middle">7'10"</text>
+          <text font-size="11" fill="#f0c040" font-family="IBM Plex Mono,monospace" x="267" y="227.5" text-anchor="middle">4'0"</text>
+          <circle cx="76.3" cy="104.25" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="148.8" cy="104.25" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="76.3" cy="198.91" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="148.8" cy="198.91" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="76.3" cy="293.57" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="148.8" cy="293.57" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="231.3" cy="104.25" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="303.8" cy="104.25" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="231.3" cy="198.91" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+          <circle cx="303.8" cy="198.91" r="6" fill="#f0c040" stroke="#4a3413" stroke-width="1"/>
+        </svg>
+      </div>
+      <p style="font-size:13.5px;color:var(--muted);background:var(--surface);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 6px 6px 0">Both top and bottom margins pulled to 3'0" — most even-looking spacing, but the widest gap between rows of the three options.</p>
+    </div>
+
+    <p style="margin-top:16px;font-size:12.5px;color:var(--muted)">Left room length used for placement is the 260" usable span (top wall to the media console), not the full 24'6" room. Right room is unobstructed at its full 14'10" length.</p>
   </div>
 
 </main>
